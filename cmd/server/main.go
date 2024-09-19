@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -54,7 +55,7 @@ func metricsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 		duration := time.Since(start).Seconds()
 
-		httpRequests.WithLabelValues(r.URL.Path, r.Method, string(wrappedWriter.statusCode)).Inc()
+		httpRequests.WithLabelValues(r.URL.Path, r.Method, strconv.Itoa(wrappedWriter.statusCode)).Inc()
 		responseTime.WithLabelValues(r.URL.Path).Observe(duration)
 	}
 }
