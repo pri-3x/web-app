@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  build-image:
+    desc: Build the latest Docker image for the Go application
+    cmds:
+      - docker build -t go-web-app:latest .
+
+  run:
+    desc: Run the application using Docker Compose
+    cmds:
+      - docker compose up -d
+
+  stop:
+    desc: Stop and remove containers, networks, volumes, and images created by up
+    cmds:
+      - docker compose down --rmi all --volumes --remove-orphans

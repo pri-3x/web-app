@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web:
+    image: go-web-app:latest
+    ports:
+      - "8085:8085"
+    environment:
+      - GO_ENV=production
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
